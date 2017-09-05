@@ -47,12 +47,12 @@ public class OTMBot extends TelegramLongPollingBot {
             }
             case "/send": {
                 if (content.length > 1) {
-                    String toSave = "";
+                    StringBuilder toSave = new StringBuilder();
                     for (int i = 1; i < content.length; i++) {
-                        toSave += content[i] + " ";
+                        toSave.append(content[i]).append(" ");
                     }
-                    toSave = toSave.trim();
-                    String key = saveOTM(toSave);
+                    toSave = new StringBuilder(toSave.toString().trim());
+                    String key = saveOTM(toSave.toString());
                     output.setText("Message saved! Key for your message is " + key);
                 } else {
                     output.setText("To save OneTimeMessage use '/send <TEXT>'");
@@ -72,6 +72,7 @@ public class OTMBot extends TelegramLongPollingBot {
                 output.setText("'/start' - welcome message.\n" +
                         "'/send <TEXT>' - send OneTimeMessage.\n" +
                         "'/read <KEY>' - read OneTimeMessagw with given key. The message will be deleted after reading.");
+                break;
             }
             default: {
                 output.setText("Unknown command! Try '/help'");
